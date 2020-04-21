@@ -32,3 +32,4 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::put('tasks/toggle/{id}', 'TasksController@toggleTask');
     
 });
+

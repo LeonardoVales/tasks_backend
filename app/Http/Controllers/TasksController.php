@@ -16,20 +16,30 @@ class TasksController extends Controller
         $this->taskModel = new Task;
     }
 
+    // 2020-04-18 23:59:59
     //Esse seria o método getTasks
     public function index($date = null)
     {
+        
+        
+
         $user = \Auth::user();
         
         if (is_null($date)) {
+
             $startDay = Carbon::now()->startOfDay();
             $date     = $startDay->copy()->endOfDay();
-        }
-        
-        $tasks = Task::where('userId', $user->id)
-                        ->where('estimateAt', '<=', $date->format('Y-m-d H:i:s'))
-                        ->get();
 
+            $tasks = Task::where('userId', $user->id)
+                    ->where('estimateAt', '<=', $date->format('Y-m-d H:i:s'))
+                    ->get();
+            
+        } else {
+
+            $tasks = Task::where('userId', $user->id)
+                    ->where('estimateAt', '<=', $date)
+                    ->get();
+        }
         return response()->json($tasks);
     
     }
