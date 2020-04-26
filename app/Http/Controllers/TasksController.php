@@ -21,8 +21,6 @@ class TasksController extends Controller
     public function index($date = null)
     {
         
-        
-
         $user = \Auth::user();
         
         if (is_null($date)) {
@@ -40,6 +38,8 @@ class TasksController extends Controller
                     ->where('estimateAt', '<=', $date)
                     ->get();
         }
+
+        
         return response()->json($tasks);
     
     }
@@ -48,8 +48,8 @@ class TasksController extends Controller
     {
         $dados = [
             'desc'       => $request['desc'],
-            'estimateAt' => $request['estimateAt'],
-            'doneAt'     => $request['doneAt'],
+            'estimateAt' => date_create($request['estimateAt'])->format('Y-m-d H:i:s'),
+            // 'doneAt'     => date_create($request['doenAt'])->format('Y-m-d H:i:s'),
             'userId'     => \Auth::user()->id
         ];
         
