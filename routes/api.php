@@ -21,6 +21,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::post('users/create', 'UsersController@create'); //Create User
 Route::post('login', 'AuthController@login'); //Login
+Route::post('refresh-token', 'AuthController@refresh'); //refresh-token
 
 Route::group(['middleware' => 'auth:api'], function () {
 
